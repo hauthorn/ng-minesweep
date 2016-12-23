@@ -2,6 +2,7 @@ import {Field} from "./field/field";
 import {FieldState} from "./field/field-state.enum";
 import {FieldContents} from "./field/field-contents.enum";
 import {Pair} from "./pair";
+import {forEach} from "@angular/router/src/utils/collection";
 export class FieldGrid {
   fields: Field[][];
 
@@ -75,14 +76,44 @@ export class FieldGrid {
   checkAndExposeNeighbors(fieldX: number, fieldY: number) {
     for (let x = fieldX - 1; x <= fieldX + 1; x++) {
       for (let y = fieldY - 1; y <= fieldY + 1; y++) {
-        if (x < 0 || x >= this.fields.length || y < 0 || y >= this.fields[0].length) return;
+        if (this.outsideGrid(x, y)) continue;
 
-        if (this.fields[x][y].hiddenContents != FieldContents.BOMB && this.fields[x][y].state != FieldState.Exposed) {
-          this.fields[x][y].state = FieldState.Exposed;
-          this.checkAndExposeNeighbors(x, y);
+        if (this.fields[x][y].state != FieldState.Exposed) {
+          if (this.fields[x][y].hiddenContents != FieldContents.BOMB && !this.hasBombsAsNeighbor(x, y)) {
+            this.fields[x][y].state = FieldState.Exposed;
+            this.checkAndExposeNeighbors(x, y);
+          }
         }
       }
     }
+  }
 
+  private hasBombsAsNeighbor(x: number, y: number): boolean {
+    let neighbors = this.getNeighbors(x, y);
+    for (let i = 0; i < neighbors.length; i++) {
+      if (neighbors[i].hiddenContents == FieldContents.BOMB) return true;
+    }
+    return false;
+  }
+
+  private getNeighbors(fieldX: number, fieldY: number): Field[] {
+    let list = [];
+    for (let x = fieldX - 1; x <= fieldX + 1; x++) {
+      for (let y = fieldY - 1; y <= fieldY + 1; y++) {
+        if (this.outsideGrid(x, y)) continue;
+        list.push(this.fields[x][y]);
+      }
+    }
+    return list;
+  }
+
+  /**
+   * Are the coordinates inside the grid?
+   * @param x
+   * @param y
+   * @returns {boolean}
+   */
+  private outsideGrid(x: number, y: number) {
+    return x < 0 || x >= this.fields.length || y < 0 || y >= this.fields[0].length;
   }
 }
