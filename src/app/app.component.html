@@ -1,7 +1,13 @@
 <md-toolbar color="primary">
   <span>ngMinesweep</span>
   <button md-button (click)="generateGrid()">Generate Grid</button>
-  <md-slider (change)="distributionChanged($event)" [thumb-label]="true" [value]="distribution" [min]="1" [max]="100"></md-slider>
+  <md-slider (change)="distributionChanged($event)" [thumb-label]="true" [value]="distribution" [min]="1"
+             [max]="100"></md-slider>
 </md-toolbar>
 
-<app-field-grid [fieldGrid]="grid"></app-field-grid>
+<div style="width:85%; float:left;">
+  <app-field-grid [fieldGrid]="grid"></app-field-grid>
+</div>
+<div style="width:15%; float: left;">
+  <app-ai-box></app-ai-box>
+</div>

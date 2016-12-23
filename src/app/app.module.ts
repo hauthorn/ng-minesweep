@@ -7,12 +7,14 @@ import {AppComponent} from './app.component';
 import {FieldGridComponent} from './field-grid/field-grid.component';
 import { FieldComponent } from './field/field.component';
 import 'hammerjs';
+import { AiBoxComponent } from './ai-box/ai-box.component';
 
 @NgModule({
   declarations: [
     FieldGridComponent,
     AppComponent,
-    FieldComponent
+    FieldComponent,
+    AiBoxComponent
   ],
   imports: [
     BrowserModule,

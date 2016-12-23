@@ -17,7 +17,7 @@ export class AppComponent {
 
   generateGrid() {
     let rate = (this.distribution / 100);
-    this.grid = FieldGrid.generateRandomGrid(20, 10, rate);
+    this.grid = FieldGrid.generateRandomGrid(16, 12, rate);
     setTimeout(() => this.grid.markFieldsWithNumberOfBombs(), 1000);
   }
 
