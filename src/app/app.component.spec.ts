@@ -1,13 +1,19 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed, async} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {MdToolbar, MdToolbarRow, MdGridList} from "@angular/material";
+import {FieldGridComponent} from "./field-grid/field-grid.component";
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        MdToolbar,
+        MdToolbarRow,
+        FieldGridComponent,
+        MdGridList
       ],
     });
     TestBed.compileComponents();
@@ -19,16 +25,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
+  it('should create a field grid', async(() => {
     let fixture = TestBed.createComponent(AppComponent);
     let app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
-  }));
-
-  it('should render title in a md-toolbar tag', async(() => {
-    let fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('md-toolbar-row').textContent).toContain('ngMinesweep');
+    expect(app.fieldgrid).toBeDefined();
   }));
 });
