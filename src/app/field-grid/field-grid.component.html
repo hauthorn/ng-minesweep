@@ -1,5 +1,5 @@
 <md-grid-list cols="{{ fieldGrid.fields.length }}">
   <md-grid-tile *ngFor="let field of fieldGrid.getFieldList()">
-    <app-field [field]="field"></app-field>
+    <app-field (exposed)="fieldExposed($event)" [field]="field"></app-field>
   </md-grid-tile>
 </md-grid-list>

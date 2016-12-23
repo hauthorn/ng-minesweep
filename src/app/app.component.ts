@@ -10,6 +10,6 @@ export class AppComponent {
   grid: FieldGrid;
 
   constructor() {
-    this.grid = FieldGrid.generateRandomGrid(10, 5);
+    this.grid = FieldGrid.generateRandomGrid(20, 10);
   }
 }

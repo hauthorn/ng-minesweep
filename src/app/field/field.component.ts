@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Field} from "../../domain/field/field";
 import {FieldState} from "../../domain/field/field-state.enum";
 import {MdSnackBar} from '@angular/material';
@@ -10,8 +10,8 @@ import {FieldContents} from "../../domain/field/field-contents.enum";
   styleUrls: ['./field.component.css']
 })
 export class FieldComponent {
-
   @Input() field: Field;
+  @Output() exposed: EventEmitter<Field> = new EventEmitter();
 
   constructor(public snackbar: MdSnackBar) {
   }
@@ -37,6 +37,7 @@ export class FieldComponent {
     }
     else {
       this.field.state = FieldState.Exposed;
+      this.exposed.emit(this.field);
     }
   }
 
