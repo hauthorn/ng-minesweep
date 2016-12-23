@@ -14,6 +14,7 @@ export class AppComponent {
   }
 
   generateGrid() {
-    this.grid = FieldGrid.generateRandomGrid(20, 10);
+    this.grid = FieldGrid.generateRandomGrid(20, 10, 0.2);
+    setTimeout(() => this.grid.markFieldsWithNumberOfBombs(), 1000);
   }
 }

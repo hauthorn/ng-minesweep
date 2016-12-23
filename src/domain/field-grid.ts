@@ -2,25 +2,12 @@ import {Field} from "./field/field";
 import {FieldState} from "./field/field-state.enum";
 import {FieldContents} from "./field/field-contents.enum";
 import {Pair} from "./pair";
-import {forEach} from "@angular/router/src/utils/collection";
 export class FieldGrid {
   fields: Field[][];
+  fieldsAsList: Field[];
 
   constructor(fields: Field[][]) {
     this.fields = fields;
-  }
-
-  getFieldList(): Field[] {
-    let width = this.fields.length;
-    let height = this.fields[0].length;
-    let fieldsAsList = [];
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        fieldsAsList.push(this.fields[x][y]);
-      }
-    }
-    return fieldsAsList;
   }
 
   /**
@@ -37,7 +24,7 @@ export class FieldGrid {
       distribution = rate;
     }
     else {
-      distribution = 0.18
+      distribution = 0.10
     }
 
     for (let x = 0; x < width; x++) {
@@ -51,6 +38,36 @@ export class FieldGrid {
       }
     }
     return new FieldGrid(gridList);
+  }
+
+  markFieldsWithNumberOfBombs() {
+    for (let x = 0; x < this.fields.length; x++) {
+      for (let y = 0; y < this.fields[0].length; y++) {
+        let neighbors = this.getNeighbors(x, y);
+        let bombNum = 0;
+        for (let i = 0; i < neighbors.length; i++) {
+          if (neighbors[i].hiddenContents == FieldContents.BOMB) {
+            bombNum++;
+          }
+        }
+        this.fields[x][y].bombNumber = bombNum;
+      }
+    }
+  }
+
+  getFieldList(): Field[] {
+    if (this.fieldsAsList != null) return this.fieldsAsList;
+    let width = this.fields.length;
+    let height = this.fields[0].length;
+    let fieldsAsList = [];
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        fieldsAsList.push(this.fields[x][y]);
+      }
+    }
+    this.fieldsAsList = fieldsAsList;
+    return fieldsAsList;
   }
 
   /**
@@ -79,21 +96,15 @@ export class FieldGrid {
         if (this.outsideGrid(x, y)) continue;
 
         if (this.fields[x][y].state != FieldState.Exposed) {
-          if (this.fields[x][y].hiddenContents != FieldContents.BOMB && !this.hasBombsAsNeighbor(x, y)) {
+          if (this.fields[x][y].hiddenContents != FieldContents.BOMB) {
             this.fields[x][y].state = FieldState.Exposed;
-            this.checkAndExposeNeighbors(x, y);
+            if (this.fields[x][y].bombNumber == 0) {
+              this.checkAndExposeNeighbors(x, y);
+            }
           }
         }
       }
     }
-  }
-
-  private hasBombsAsNeighbor(x: number, y: number): boolean {
-    let neighbors = this.getNeighbors(x, y);
-    for (let i = 0; i < neighbors.length; i++) {
-      if (neighbors[i].hiddenContents == FieldContents.BOMB) return true;
-    }
-    return false;
   }
 
   private getNeighbors(fieldX: number, fieldY: number): Field[] {

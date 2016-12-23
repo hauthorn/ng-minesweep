@@ -1,3 +1,4 @@
 <md-card *ngIf="!hasBeenExposed()" (click)="exposeField($event)" (contextmenu)="changeFieldState($event)">
   <md-icon>{{ getIconString() }}</md-icon>
 </md-card>
+<span *ngIf="hasBeenExposed() && field.bombNumber > 0">{{ field.bombNumber }}</span>
