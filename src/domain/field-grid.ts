@@ -22,6 +22,7 @@ export class FieldGrid {
         fieldsAsList.push(this.fields[x][y]);
       }
     }
+    console.log(fieldsAsList);
     return fieldsAsList;
   }
 

@@ -17,6 +17,7 @@ export class FieldComponent {
   }
 
   getIconString(): string {
+    if (this.field.hiddenContents == FieldContents.BOMB) return "warning";
     switch (this.field.state) {
       case FieldState.Unmarked:
         return "";
@@ -31,10 +32,8 @@ export class FieldComponent {
 
   exposeField(event) {
     event.preventDefault();
-    if (this.field.hiddenContents = FieldContents.BOMB) {
-      this.snackbar.open("BOMB!", "Start again", {
-        duration: 2000
-      });
+    if (this.field.hiddenContents == FieldContents.BOMB) {
+      this.snackbar.open("BOMB!", "Start again");
     }
     else {
       this.field.state = FieldState.Exposed;
