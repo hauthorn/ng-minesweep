@@ -17,6 +17,8 @@ export class FieldComponent {
   }
 
   getIconString(): string {
+    // For debugging
+    //if (this.field.hiddenContents == FieldContents.BOMB) return "warning";
     switch (this.field.state) {
       case FieldState.Unmarked:
         return "";

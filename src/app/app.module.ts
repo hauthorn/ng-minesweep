@@ -6,6 +6,7 @@ import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {FieldGridComponent} from './field-grid/field-grid.component';
 import { FieldComponent } from './field/field.component';
+import 'hammerjs';
 
 @NgModule({
   declarations: [

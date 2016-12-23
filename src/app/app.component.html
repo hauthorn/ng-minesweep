@@ -1,2 +1,7 @@
-<md-toolbar color="primary">ngMinesweep <button md-button (click)="generateGrid()">Reset</button></md-toolbar>
+<md-toolbar color="primary">
+  <span>ngMinesweep</span>
+  <button md-button (click)="generateGrid()">Generate Grid</button>
+  <md-slider (change)="distributionChanged($event)" [value]="distribution" [min]="1" [max]="100"></md-slider>
+</md-toolbar>
+
 <app-field-grid [fieldGrid]="grid"></app-field-grid>

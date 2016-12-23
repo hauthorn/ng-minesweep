@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {FieldGrid} from "../domain/field-grid";
+import {MdSliderChange} from "@angular/material";
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,19 @@ import {FieldGrid} from "../domain/field-grid";
 })
 export class AppComponent {
   grid: FieldGrid;
+  distribution: number = 20;
 
   constructor() {
     this.generateGrid();
   }
 
   generateGrid() {
-    this.grid = FieldGrid.generateRandomGrid(20, 10, 0.2);
+    let rate = (this.distribution / 100);
+    this.grid = FieldGrid.generateRandomGrid(20, 10, rate);
     setTimeout(() => this.grid.markFieldsWithNumberOfBombs(), 1000);
+  }
+
+  distributionChanged(event : MdSliderChange) {
+    this.distribution = event.value;
   }
 }
