@@ -1,30 +1,58 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Field} from "../../domain/field/field";
 import {FieldState} from "../../domain/field/field-state.enum";
+import {MdSnackBar} from '@angular/material';
+import {FieldContents} from "../../domain/field/field-contents.enum";
 
 @Component({
   selector: 'app-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.css']
 })
-export class FieldComponent implements OnInit {
+export class FieldComponent {
 
   @Input() field: Field;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(public snackbar: MdSnackBar) {
   }
 
-  getFieldStateString() : string {
+  getIconString(): string {
     switch (this.field.state) {
       case FieldState.Unmarked:
-        return "[ ]";
+        return "";
       case FieldState.Marked:
-        return "[x]";
+        return "warning";
       case FieldState.Unsure:
-        return "[?]";
+        return "help";
+      case FieldState.Exposed:
+        return "done";
     }
   }
 
+  exposeField(event) {
+    event.preventDefault();
+    if (this.field.hiddenContents = FieldContents.BOMB) {
+      this.snackbar.open("BOMB!", "Start again", {
+        duration: 2000
+      });
+    }
+    else {
+      this.field.state = FieldState.Exposed;
+    }
+  }
+
+  changeFieldState(event) {
+    event.preventDefault();
+    switch (this.field.state) {
+      case FieldState.Unmarked:
+        this.field.state = FieldState.Marked;
+        break;
+      case FieldState.Marked:
+        this.field.state = FieldState.Unsure;
+        break;
+      case FieldState.Unsure:
+        this.field.state = FieldState.Unmarked;
+        break;
+    }
+  }
 }
