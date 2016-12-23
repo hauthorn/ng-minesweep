@@ -33,7 +33,7 @@ export class FieldComponent {
   exposeField(event) {
     event.preventDefault();
     if (this.field.hiddenContents == FieldContents.BOMB) {
-      this.snackbar.open("BOMB!", "Start again");
+      this.snackbar.open("BOMB!");
     }
     else {
       this.field.state = FieldState.Exposed;
@@ -53,5 +53,9 @@ export class FieldComponent {
         this.field.state = FieldState.Unmarked;
         break;
     }
+  }
+
+  hasBeenExposed() {
+    return this.field.state == FieldState.Exposed;
   }
 }

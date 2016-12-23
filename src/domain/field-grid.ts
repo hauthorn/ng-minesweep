@@ -22,7 +22,6 @@ export class FieldGrid {
         fieldsAsList.push(this.fields[x][y]);
       }
     }
-    console.log(fieldsAsList);
     return fieldsAsList;
   }
 
@@ -33,7 +32,7 @@ export class FieldGrid {
       gridList[x] = [];
       for (let y = 0; y < height; y++) {
         let contents = FieldContents.NOT_BOMB;
-        if (y == 0 && x == 1) {
+        if (Math.random() < 0.18) {
           contents = FieldContents.BOMB;
         }
         gridList[x][y] = new Field(FieldState.Unmarked, contents);
