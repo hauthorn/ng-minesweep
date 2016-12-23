@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FieldGrid} from "./logic/field-grid";
+import {FieldGrid} from "../domain/field-grid";
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,9 @@ import {FieldGrid} from "./logic/field-grid";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  fieldgrid: FieldGrid;
-
+  grid: FieldGrid;
 
   constructor() {
-    this.fieldgrid = FieldGrid.generateRandomGrid(10, 10);
+    this.grid = FieldGrid.generateRandomGrid(10, 5);
   }
 }
