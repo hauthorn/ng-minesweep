@@ -2,7 +2,10 @@
   <md-card-title>AI Sidebar</md-card-title>
   <md-card-content>
     <ul>
-      <li *ngFor="let message of messages">{{ message }}</li>
+      <li *ngFor="let message of messages.slice().reverse()">{{ message }}</li>
     </ul>
   </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="runStep()">RUN</button>
+  </md-card-actions>
 </md-card>

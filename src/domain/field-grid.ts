@@ -4,7 +4,7 @@ import {FieldContents} from "./field/field-contents.enum";
 import {Pair} from "./pair";
 export class FieldGrid {
   fields: Field[][];
-  fieldsAsList: Field[];
+  private fieldsAsList: Field[];
 
   constructor(fields: Field[][]) {
     this.fields = fields;
@@ -107,7 +107,7 @@ export class FieldGrid {
     }
   }
 
-  private getNeighbors(fieldX: number, fieldY: number): Field[] {
+  getNeighbors(fieldX: number, fieldY: number): Field[] {
     let list = [];
     for (let x = fieldX - 1; x <= fieldX + 1; x++) {
       for (let y = fieldY - 1; y <= fieldY + 1; y++) {
