@@ -1,11 +1,12 @@
 import {FieldGrid} from "../field-grid";
 import {FieldState} from "../field/field-state.enum";
 import {AIListener} from "./ai-listener";
+import {Rule} from "./rules/rule";
 
 export class AI {
   private grid: FieldGrid;
   private listeners: Array<AIListener> = [];
-  //private rules: Array<Rule> = [];
+  private rules: Array<Rule> = [];
 
   constructor(grid: FieldGrid) {
     this.grid = grid;
@@ -23,7 +24,6 @@ export class AI {
     let fieldList = this.grid.getFieldList();
     let didStep = false;
 
-    /*
     let bestRule : Rule = this.rules[0];
     let bestScore = 0;
     this.rules.forEach((rule) => {
@@ -35,7 +35,13 @@ export class AI {
       }
     });
 
-    bestRule.run(); // */
+    if (bestScore > 0) {
+      bestRule.run();
+      return true;
+    }
+    else {
+      return false;
+    }
 
     for (let i = 0; i < fieldList.length; i++) {
       if (didStep) break;
