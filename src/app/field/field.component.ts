@@ -32,9 +32,12 @@ export class FieldComponent {
   }
 
   exposeField(event) {
+    if (this.field.state != FieldState.Unmarked) return; // Do nothing for a marked field
     event.preventDefault();
     if (this.field.hiddenContents == FieldContents.BOMB) {
-      this.snackbar.open("BOMB!");
+      this.snackbar.open("BOMB!", "OK", {
+        duration: 2000,
+      });
     }
     else {
       this.field.state = FieldState.Exposed;
