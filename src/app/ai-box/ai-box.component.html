@@ -1,8 +1,12 @@
 <md-card>
-  <md-card-title>AI Sidebar</md-card-title>
+  <md-card-header>
+    <md-card-title>AI Sidebar</md-card-title>
+    <md-card-subtitle>Press run to have the AI play the game for you.</md-card-subtitle>
+  </md-card-header>
   <md-card-content>
+    <p>The thoughts of the AI:</p>
     <ul>
-      <li *ngFor="let message of messages.slice().reverse()">{{ message }}</li>
+        <li *ngFor="let message of getNewestMessages()">{{ message }}</li>
     </ul>
   </md-card-content>
   <md-card-actions>

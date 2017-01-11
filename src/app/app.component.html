@@ -2,16 +2,16 @@
   <span>ngMinesweep</span>
 </md-toolbar>
 
-<div style="width:85%; float:left;">
+<div style="width:80%; float:left;">
   <app-field-grid [fieldGrid]="grid"></app-field-grid>
 </div>
-<div style="width:15%; float: left;">
+<div style="width:20%; float: left;">
   <app-ai-box [ai]="ai"></app-ai-box>
 
-  <md-card style="margin-top: 2em;">
+  <md-card style="margin-top: 1em;">
     <md-card-header>
       <md-card-title>Settings</md-card-title>
-      <md-card-subtitle>Adjust the size of the grid.</md-card-subtitle>
+      <md-card-subtitle>Adjust the size and percentage of bombs of the grid.</md-card-subtitle>
     </md-card-header>
     <md-card-content>
       <form>
@@ -28,9 +28,7 @@
 
         <button md-button type="submit" (click)="generateGrid(bWidth, bHeight)" >Generate Grid</button>
       </form>
-
     </md-card-content>
-
   </md-card>
 
 </div>

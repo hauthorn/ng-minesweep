@@ -45,4 +45,8 @@ export class AiBoxComponent implements OnInit, AIListener {
     let coordinates = this.ai.getFieldGrid().getIndicesOfField(field);
     this.messages.push("Exposing fields: " + coordinates.first + ", " + coordinates.second );
   }
+
+  getNewestMessages(): Array<string> {
+    return this.messages.slice().reverse().slice(0, 3);
+  }
 }
