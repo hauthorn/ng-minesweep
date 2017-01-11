@@ -12,20 +12,28 @@ export class AppComponent {
   grid: FieldGrid;
   ai: AI;
   distribution: number = 20;
+  defaultWidth: number = 14;
+  defaultHeight: number = 8;
 
   constructor() {
     this.generateGrid();
     this.ai = new AI(this.grid);
   }
 
-  generateGrid() {
+  generateGrid(width?: number, height?: number) {
+    if (!width) {
+      width = this.defaultWidth;
+    }
+    if (!height) {
+      height = this.defaultHeight;
+    }
     let rate = (this.distribution / 100);
-    this.grid = FieldGrid.generateRandomGrid(16, 10, rate);
+    this.grid = FieldGrid.generateRandomGrid(width, height, rate);
     setTimeout(() => this.grid.markFieldsWithNumberOfBombs(), 1000);
     if (this.ai) this.ai.setGrid(this.grid);
   }
 
-  distributionChanged(event : MdSliderChange) {
+  distributionChanged(event: MdSliderChange) {
     this.distribution = event.value;
   }
 }
